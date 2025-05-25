@@ -2,8 +2,12 @@ package com.deepakjetpackcompose.nosleep.util
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -28,15 +32,18 @@ fun ChooseComposable(modifier: Modifier = Modifier) {
         Preference(title = "Achieve your goals", img = R.drawable.bg3, personImg = R.drawable.goals, color = Color(0xFFF2DCC2)),
         Preference(title = "Listening to the soothing music", img = R.drawable.bg2, personImg = R.drawable.musicboy, color = Color(0xFFCED8F2))
     )
+    val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+
 
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(10.dp)
+            .navigationBarsPadding(),
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         verticalItemSpacing = 24.dp,
-        contentPadding = PaddingValues(bottom = 100.dp)
+        contentPadding = PaddingValues(bottom = bottomPadding + 32.dp)
     ) {
         items (preference){item->
             ChooseContent(

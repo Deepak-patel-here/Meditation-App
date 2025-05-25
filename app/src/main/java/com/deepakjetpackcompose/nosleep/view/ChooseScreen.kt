@@ -33,11 +33,10 @@ import com.deepakjetpackcompose.nosleep.util.ChooseText
 fun ChooseScreen(modifier: Modifier = Modifier) {
 
     BoxWithConstraints(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFF2DCC2))
-            .navigationBarsPadding()
-            .statusBarsPadding()
+
     ){
         val screenHeight= minHeight
         val screenWidth=minWidth
@@ -67,8 +66,9 @@ fun ChooseScreen(modifier: Modifier = Modifier) {
 
             ChooseComposable(modifier=Modifier.constrainAs (list){
                 start.linkTo(parent.start)
+                end.linkTo(parent.end)
                 top.linkTo(title.bottom,margin=20.dp)
-            }.padding(horizontal = 10.dp).navigationBarsPadding())
+            }.padding(horizontal = 10.dp))
 
             FloatingActionButton(onClick = {},
                 modifier= Modifier.constrainAs (btn){
