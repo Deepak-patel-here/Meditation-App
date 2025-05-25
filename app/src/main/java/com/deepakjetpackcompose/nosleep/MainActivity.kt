@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.deepakjetpackcompose.nosleep.navigation.Navigation
 import com.deepakjetpackcompose.nosleep.ui.theme.NoSleepTheme
-import com.deepakjetpackcompose.nosleep.view.GetStarted
+import com.deepakjetpackcompose.nosleep.view.OnBoardingScreen2
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NoSleepTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GetStarted(modifier = Modifier.padding(innerPadding))
+                    Navigation(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
