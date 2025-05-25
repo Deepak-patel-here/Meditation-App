@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import com.deepakjetpackcompose.nosleep.R
+import com.deepakjetpackcompose.nosleep.navigation.NavigationHelper
 import com.deepakjetpackcompose.nosleep.ui.theme.SyneBold
 import com.deepakjetpackcompose.nosleep.ui.theme.text
 
@@ -115,7 +116,11 @@ fun OnBoardingScreen2(modifier: Modifier = Modifier, navController: NavHostContr
 
             )
 
-            OutlinedButton(onClick = {},
+            OutlinedButton(onClick = {
+                navController.navigate(NavigationHelper.LoginScreen.route){
+                    popUpTo(NavigationHelper.OnBoarding.route){inclusive=true}
+                }
+            },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 70.dp)
@@ -143,7 +148,11 @@ fun OnBoardingScreen2(modifier: Modifier = Modifier, navController: NavHostContr
                     start.linkTo(login.start)
                     end.linkTo(login.end)
                 }
-                    .clickable(onClick = {})
+                    .clickable(onClick = {
+                        navController.navigate(NavigationHelper.SignUpScreen.route){
+                            popUpTo(NavigationHelper.OnBoarding.route){inclusive=true}
+                        }
+                    })
                 )
         }
     }

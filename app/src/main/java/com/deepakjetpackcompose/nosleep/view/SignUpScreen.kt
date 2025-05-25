@@ -49,9 +49,10 @@ import com.deepakjetpackcompose.nosleep.ui.theme.SyneBold
 import com.deepakjetpackcompose.nosleep.ui.theme.text
 import com.deepakjetpackcompose.nosleep.util.ClickableTextAuth
 
+
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun SignUpScreen(modifier: Modifier = Modifier, navController: NavHostController) {
 
     BoxWithConstraints(
         modifier = Modifier
@@ -66,10 +67,14 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
         ConstraintLayout (
             modifier = Modifier.fillMaxSize()
         ){
-            val(topBg,login,email,password,account,btn,title)=createRefs()
+            val(topBg,sign,email,password,account,btn,title,name,confirmPassword)=createRefs()
             var emailText by remember { mutableStateOf("") }
+            var nameText by remember { mutableStateOf("") }
             var passwordText by remember { mutableStateOf("") }
+            var confirmPasswordText by remember { mutableStateOf("") }
             val passwordRequester = remember { FocusRequester() }
+            val confirmPasswordRequester = remember { FocusRequester() }
+            val emailRequester = remember { FocusRequester() }
             val keyboard= LocalSoftwareKeyboardController.current
             var isShow by remember { mutableStateOf(false) }
 
@@ -101,21 +106,21 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
             )
 
             Text(
-                "Login",
+                "Sign Up",
                 fontSize = 30.sp,
                 fontFamily = SyneBold,
                 fontWeight = FontWeight.Bold,
                 color = text,
-                modifier = Modifier.constrainAs(login) {
-                    top.linkTo(topBg.bottom, margin = -50.dp)
+                modifier = Modifier.constrainAs(sign) {
+                    top.linkTo(topBg.bottom, margin =( -50).dp)
                     start.linkTo(parent.start, margin = 20.dp)
 
                 }
             )
 
             OutlinedTextField(
-                value = emailText,
-                onValueChange = {emailText=it},
+                value = nameText,
+                onValueChange = {nameText=it},
                 leadingIcon = {
                     Icon(
                         painter = painterResource(R.drawable.user),
@@ -127,9 +132,49 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
                 modifier= Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .constrainAs (email){
-                    top.linkTo(login.bottom, margin = 25.dp)
+                    .constrainAs (name){
+                        top.linkTo(sign.bottom, margin = 25.dp)
+                    },
+                label = {
+                    Text("Name",
+                        fontFamily = SyneBold,
+                        fontWeight = FontWeight.Bold,
+                        color = text
+                    )
                 },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        emailRequester.requestFocus()
+                    }
+                ),
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = text,
+                    focusedIndicatorColor = text,
+                    unfocusedContainerColor = Color.Transparent,
+                    focusedContainerColor = Color.Transparent,
+                    focusedTextColor = text
+                )
+            )
+
+            OutlinedTextField(
+                value = emailText,
+                onValueChange = {emailText=it},
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(R.drawable.email),
+                        contentDescription = null,
+                        modifier= Modifier.size(30.dp),
+                        tint = text
+                    )
+                },
+                modifier= Modifier
+                    .fillMaxWidth()
+                    .focusRequester(emailRequester)
+                    .padding(horizontal = 20.dp)
+                    .constrainAs (email){
+                        top.linkTo(name.bottom, margin = 15.dp)
+                    },
                 label = {
                     Text("Email",
                         fontFamily = SyneBold,
@@ -177,9 +222,62 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
                         color = text
                     )
                 },
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
                     onNext = {
+                       confirmPasswordRequester.requestFocus()
+                    }
+                ),
+                colors = TextFieldDefaults.colors(
+                    unfocusedIndicatorColor = text,
+                    focusedIndicatorColor = text,
+                    unfocusedContainerColor = Color.Transparent,
+                    focusedContainerColor = Color.Transparent,
+                    focusedTextColor = text
+                ),
+                visualTransformation =if(isShow) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    Icon(
+                        painter = painterResource(
+                            if(isShow)R.drawable.show
+                            else R.drawable.hide
+                        ),
+                        contentDescription = null,
+                        modifier = Modifier.size(25.dp)
+                            .clickable(onClick = {isShow= !isShow}),
+                        tint = text
+                    )
+                }
+            )
+
+            OutlinedTextField(
+                value = confirmPasswordText,
+                onValueChange = {confirmPasswordText=it},
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(R.drawable.lock),
+                        contentDescription = null,
+                        modifier= Modifier.size(30.dp),
+                        tint = text
+                    )
+                },
+                modifier= Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .focusRequester(confirmPasswordRequester)
+                    .constrainAs (confirmPassword){
+                        top.linkTo(password.bottom, margin = 15.dp)
+                    },
+                label = {
+                    Text("Confirm Password",
+                        fontFamily = SyneBold,
+                        fontWeight = FontWeight.Bold,
+                        color = text
+                    )
+                },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = {
                         keyboard?.hide()
                     }
                 ),
@@ -210,12 +308,12 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
                     .fillMaxWidth()
                     .padding(horizontal = 70.dp)
                     .constrainAs (btn){
-                        top.linkTo(password.bottom, margin = 30.dp)
+                        top.linkTo(confirmPassword.bottom, margin = 30.dp)
                     },
                 border = BorderStroke(width = 2.dp, color = text),
                 shape = RoundedCornerShape(0.dp)
             ) {
-                Text("Login",
+                Text("Sign up",
                     fontFamily = SyneBold,
                     fontWeight = FontWeight.Bold,
                     color = text,
@@ -224,11 +322,13 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
             }
 
             ClickableTextAuth(
-                text1 = "Don't have an account?",
-                text2="sign up",
-                onClick = {navController.navigate(NavigationHelper.SignUpScreen.route){
-                    popUpTo(NavigationHelper.LoginScreen.route){inclusive=true}
-                } },
+                text1 = "Already have an account?",
+                text2="login",
+                onClick = {
+                    navController.navigate(NavigationHelper.LoginScreen.route){
+                        popUpTo(NavigationHelper.SignUpScreen.route){inclusive=true}
+                    }
+                },
                 modifier = Modifier.constrainAs(account) {
                     top.linkTo(btn.bottom, margin = 40.dp)
                     start.linkTo(parent.start)

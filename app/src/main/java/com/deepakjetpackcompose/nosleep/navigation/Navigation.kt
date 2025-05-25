@@ -5,8 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.deepakjetpackcompose.nosleep.view.LoginScreen
 import com.deepakjetpackcompose.nosleep.view.OnBoardingScreen
 import com.deepakjetpackcompose.nosleep.view.OnBoardingScreen2
+import com.deepakjetpackcompose.nosleep.view.SignUpScreen
 
 @Composable
 fun Navigation(modifier: Modifier = Modifier) {
@@ -20,6 +22,14 @@ fun Navigation(modifier: Modifier = Modifier) {
 
         composable (route = NavigationHelper.OnBoarding.route){
             OnBoardingScreen2(navController = navController, modifier = modifier)
+        }
+
+        composable (route = NavigationHelper.LoginScreen.route){
+            LoginScreen(navController = navController, modifier = modifier)
+        }
+
+        composable (route = NavigationHelper.SignUpScreen.route){
+            SignUpScreen(navController = navController, modifier = modifier)
         }
 
 
