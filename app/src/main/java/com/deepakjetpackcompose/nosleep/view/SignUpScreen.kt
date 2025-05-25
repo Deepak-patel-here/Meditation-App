@@ -303,7 +303,9 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavHostController
                 }
             )
 
-            OutlinedButton(onClick = {},
+            OutlinedButton(onClick = {
+                navController.navigate(NavigationHelper.ChooseScreen.route)
+            },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 70.dp)

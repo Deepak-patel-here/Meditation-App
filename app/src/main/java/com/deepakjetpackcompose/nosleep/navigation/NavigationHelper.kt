@@ -5,4 +5,5 @@ sealed class NavigationHelper(val route:String) {
     object OnBoarding: NavigationHelper(route = "onBoarding")
     object LoginScreen: NavigationHelper(route = "login")
     object SignUpScreen: NavigationHelper(route = "signup")
+    object ChooseScreen: NavigationHelper(route = "choose")
 }
