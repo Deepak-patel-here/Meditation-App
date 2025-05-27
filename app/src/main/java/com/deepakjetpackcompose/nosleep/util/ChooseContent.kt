@@ -34,16 +34,17 @@ fun ChooseContent(
     img: Int,
     personImg: Int,
     bgColor: Color,
+    isClicked: Boolean,
+    onClick:(String)-> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isClicked by remember { mutableStateOf(false) }
 
     ConstraintLayout(
         modifier = Modifier
             .width(155.dp)
             .clip(RoundedCornerShape(12.dp)) // Apply clip BEFORE background
             .background(bgColor)
-            .clickable { isClicked = !isClicked }
+            .clickable { onClick(textTitle) }
             .border(
                 width = 1.5.dp,
                 color = if (isClicked) Color.Green else bgColor,

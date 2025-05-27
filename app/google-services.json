@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "642011054558",
+    "project_id": "nosleep-3c875",
+    "storage_bucket": "nosleep-3c875.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642011054558:android:630952cca878b06e971d4f",
+        "android_client_info": {
+          "package_name": "com.deepakjetpackcompose.nosleep"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpjhMyJC9s0Liq4siAeIrn8pbuf_cgEGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

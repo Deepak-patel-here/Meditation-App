@@ -36,11 +36,16 @@ import com.deepakjetpackcompose.nosleep.navigation.NavigationHelper
 import com.deepakjetpackcompose.nosleep.ui.theme.SyneBold
 import com.deepakjetpackcompose.nosleep.ui.theme.buttonBg
 import com.deepakjetpackcompose.nosleep.util.GetStartedText
+import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
-fun OnBoardingScreen(navController: NavController,modifier: Modifier = Modifier) {
+fun OnBoardingScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    authViewModel: AuthViewModel
+) {
     BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
