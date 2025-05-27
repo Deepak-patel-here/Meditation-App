@@ -72,7 +72,6 @@ fun ChooseComposable(
     )
     val bottomPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
 
-    var selectedKeywords by remember { mutableStateOf<List<String>>(emptyList()) }
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         modifier = modifier

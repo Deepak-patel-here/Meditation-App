@@ -2,6 +2,7 @@ package com.deepakjetpackcompose.nosleep.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.deepakjetpackcompose.nosleep.model.Recent
 import com.deepakjetpackcompose.nosleep.model.User
 import com.deepakjetpackcompose.nosleep.model.constants.USER
 import com.google.firebase.auth.FirebaseAuth
@@ -88,6 +89,7 @@ class AuthViewModel : ViewModel() {
     fun saveUserToFireStore(user: User, onResult: (Boolean, String?) -> Unit) {
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
+        _isLoading.value= AuthState.Loading
 
         if (userId != null) {
             firestore
@@ -96,12 +98,15 @@ class AuthViewModel : ViewModel() {
                 .set(user)
                 .addOnSuccessListener {
                     onResult(true, "User saved successfully")
+                    _isLoading.value= AuthState.notLoading
                 }
                 .addOnFailureListener {
                     onResult(false, it.localizedMessage)
+                    _isLoading.value= AuthState.notLoading
                 }
         } else {
             onResult(false, "User not logged in")
+            _isLoading.value= AuthState.notLoading
         }
     }
 
@@ -123,6 +128,17 @@ class AuthViewModel : ViewModel() {
                     callback(null)
                 }
         }
+    }
+    fun fetchRecentAudio(onResult: (List<Recent>)-> Unit){
+        firestore.collection(USER).document("Audios").collection("recent").get()
+            .addOnSuccessListener { documents->
+                val mediaList = documents.mapNotNull { it.toObject(Recent::class.java) }
+                onResult(mediaList)
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
+            }
+
     }
 }
 

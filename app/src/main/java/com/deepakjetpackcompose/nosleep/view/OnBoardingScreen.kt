@@ -20,6 +20,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +38,7 @@ import com.deepakjetpackcompose.nosleep.navigation.NavigationHelper
 import com.deepakjetpackcompose.nosleep.ui.theme.SyneBold
 import com.deepakjetpackcompose.nosleep.ui.theme.buttonBg
 import com.deepakjetpackcompose.nosleep.util.GetStartedText
+import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 
 
@@ -46,6 +49,7 @@ fun OnBoardingScreen(
     modifier: Modifier = Modifier,
     authViewModel: AuthViewModel
 ) {
+
     BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
@@ -63,6 +67,7 @@ fun OnBoardingScreen(
 
 @Composable
 fun OnBoardingContent(navController: NavController,screenWidth: Dp, screenHeight: Dp) {
+
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (title, moon, welcome, bubbles, person, polygon, button,cloud1,cloud2,cloud3) = createRefs()
 

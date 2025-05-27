@@ -66,5 +66,8 @@ dependencies {
     val nav_version = "2.9.0"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    // In your build.gradle (app-level) under dependencies:
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 
 }

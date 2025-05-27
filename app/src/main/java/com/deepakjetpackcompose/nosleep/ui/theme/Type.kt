@@ -42,3 +42,13 @@ val SyneBold=FontFamily(
     Font(R.font.syne_semibold, FontWeight.SemiBold),
     Font(R.font.syne_regular, FontWeight.Normal),
 )
+
+val NunitoFont= FontFamily(
+    Font(R.font.nunito_bold, FontWeight.Bold),
+    Font(R.font.nunito_regular, FontWeight.Normal),
+    Font(R.font.nunito_light, FontWeight.Light),
+    Font(R.font.nunito_medium, FontWeight.Medium),
+    Font(R.font.nunito_extra_bold, FontWeight.ExtraBold),
+    Font(R.font.nunito_semi_bold, FontWeight.SemiBold),
+    Font(R.font.nunito_extra_light, FontWeight.ExtraLight),
+)

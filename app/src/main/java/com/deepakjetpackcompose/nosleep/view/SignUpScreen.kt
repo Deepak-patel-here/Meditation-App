@@ -6,6 +6,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -30,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -63,6 +66,20 @@ fun SignUpScreen(
     authViewModel: AuthViewModel
 ) {
 
+    var emailText by remember { mutableStateOf("") }
+    var nameText by remember { mutableStateOf("") }
+    var passwordText by remember { mutableStateOf("") }
+    var confirmPasswordText by remember { mutableStateOf("") }
+    val passwordRequester = remember { FocusRequester() }
+    val confirmPasswordRequester = remember { FocusRequester() }
+    val emailRequester = remember { FocusRequester() }
+    val keyboard= LocalSoftwareKeyboardController.current
+    var isShow by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val authState by authViewModel.authState.collectAsState()
+    val loading by authViewModel.isLoading.collectAsState()
+
+
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
@@ -77,17 +94,7 @@ fun SignUpScreen(
             modifier = Modifier.fillMaxSize()
         ){
             val(topBg,sign,email,password,account,btn,title,name,confirmPassword)=createRefs()
-            var emailText by remember { mutableStateOf("") }
-            var nameText by remember { mutableStateOf("") }
-            var passwordText by remember { mutableStateOf("") }
-            var confirmPasswordText by remember { mutableStateOf("") }
-            val passwordRequester = remember { FocusRequester() }
-            val confirmPasswordRequester = remember { FocusRequester() }
-            val emailRequester = remember { FocusRequester() }
-            val keyboard= LocalSoftwareKeyboardController.current
-            var isShow by remember { mutableStateOf(false) }
-            val context = LocalContext.current
-            val authState by authViewModel.authState.collectAsState()
+
 
             LaunchedEffect(authState) {
                 if(authState== AuthState.Authenticated){
@@ -368,6 +375,15 @@ fun SignUpScreen(
                     end.linkTo(parent.end)
                 }
             )
+        }
+        if (loading is AuthState.Loading) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White.copy(alpha = 0.6f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
 
 
