@@ -1,11 +1,9 @@
 package com.deepakjetpackcompose.nosleep.util
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -24,16 +22,16 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.deepakjetpackcompose.nosleep.R
-import com.deepakjetpackcompose.nosleep.model.Recent
+import com.deepakjetpackcompose.nosleep.model.Audios
 import com.deepakjetpackcompose.nosleep.ui.theme.NunitoFont
 import com.deepakjetpackcompose.nosleep.ui.theme.SyneBold
 
 @Composable
-fun NewAudios(recent: Recent,modifier: Modifier = Modifier) {
+fun NewAudios(audios: Audios, modifier: Modifier = Modifier) {
     Box(modifier = Modifier.width(280.dp).height(171.dp).clip(RoundedCornerShape(12.dp))){
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(recent.img)
+                .data(audios.img)
                 .crossfade(true)
                 .build(),
             placeholder = painterResource(R.drawable.landscape),
@@ -43,12 +41,12 @@ fun NewAudios(recent: Recent,modifier: Modifier = Modifier) {
         )
         Column (modifier = Modifier.fillMaxSize().padding(10.dp)){
             Spacer(Modifier.height(10.dp))
-            Text(recent.title.toString(),
+            Text(audios.title.toString(),
                 color = Color.Black,
                 fontFamily = SyneBold,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 21.sp,)
-            Text(recent.subTitle.toString(),
+            Text(audios.subTitle.toString(),
                 color = Color.Black,
                 fontFamily = NunitoFont,
                 fontWeight = FontWeight.Normal,

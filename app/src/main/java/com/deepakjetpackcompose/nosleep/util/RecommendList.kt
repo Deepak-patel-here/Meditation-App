@@ -1,6 +1,7 @@
 package com.deepakjetpackcompose.nosleep.util
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,38 +22,42 @@ import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 
 @Composable
-fun RecentList(authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
-
+fun RecommendList(authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
     val audiosList = remember { mutableStateOf<List<Audios>>(emptyList()) }
     val isLoading = authViewModel.isLoading.collectAsState()
     LaunchedEffect(Unit) {
-        authViewModel.fetchRecentAudio {
+        authViewModel.fetchRecommendAudios {
             audiosList.value = it
         }
     }
 
     if (isLoading.value is AuthState.Loading) {
-        LazyRow (modifier = modifier.fillMaxWidth()){
-            items (3){
-                Box(modifier = Modifier
-                    .width(280.dp)
-                    .height(171.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .shimmerEffect()
-                ) {
+        LazyRow(modifier = modifier.fillMaxWidth()) {
+            items(3) {
+                Column {
+                    Box(
+                        modifier = Modifier
+                            .width(180.dp)
+                            .height(130.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .shimmerEffect()
+                    )
+                    Spacer(Modifier.height(9.dp))
+                    Box(modifier.width(160.dp).height(9.dp).shimmerEffect()) { }
                 }
 
                 Spacer(Modifier.width(15.dp))
 
             }
         }
-    }else {
+    } else {
         LazyRow(modifier = modifier.fillMaxWidth()) {
             items(audiosList.value) { item ->
-                NewAudios(audios = item)
+                RecommendComp(item)
                 Spacer(Modifier.width(15.dp))
             }
         }
     }
+
 
 }

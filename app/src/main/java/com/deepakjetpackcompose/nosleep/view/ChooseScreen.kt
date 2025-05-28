@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -128,13 +130,10 @@ fun ChooseScreen(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }) {
-                Text(
-                    "continue",
-                    fontSize = 18.sp,
-                    fontFamily = SyneBold,
-                    fontWeight = FontWeight.Bold,
-                    color = text,
-                    modifier = Modifier.padding(10.dp)
+                Icon(
+                    painter=painterResource(R.drawable.rightarrow),
+                    contentDescription = null,
+                    modifier=Modifier.size(50.dp)
                 )
             }
         }

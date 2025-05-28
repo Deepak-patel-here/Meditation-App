@@ -1,8 +1,7 @@
 package com.deepakjetpackcompose.nosleep.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.deepakjetpackcompose.nosleep.model.Recent
+import com.deepakjetpackcompose.nosleep.model.Audios
 import com.deepakjetpackcompose.nosleep.model.User
 import com.deepakjetpackcompose.nosleep.model.constants.USER
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +16,7 @@ class AuthViewModel : ViewModel() {
     private val _authState = MutableStateFlow<AuthState>(AuthState.UnAuthenticated)
     val authState: StateFlow<AuthState> = _authState.asStateFlow()
 
-    private val _isLoading = MutableStateFlow<AuthState>(AuthState.notLoading)
+    private val _isLoading = MutableStateFlow<AuthState>(AuthState.UnLoading)
     val isLoading: StateFlow<AuthState> = _isLoading
 
     private val _name= MutableStateFlow<String>("")
@@ -46,12 +45,12 @@ class AuthViewModel : ViewModel() {
                 _name.value=name
                 _email.value=email
                 _authState.value = AuthState.Authenticated
-                _isLoading.value = AuthState.notLoading
+                _isLoading.value = AuthState.UnLoading
             }
             .addOnFailureListener {
                 onResult(false,it.localizedMessage)
                 _authState.value = AuthState.UnAuthenticated
-                _isLoading.value = AuthState.notLoading
+                _isLoading.value = AuthState.UnLoading
             }
 
 
@@ -72,12 +71,12 @@ class AuthViewModel : ViewModel() {
                     }
                 }
                 _authState.value = AuthState.Authenticated
-                _isLoading.value = AuthState.notLoading
+                _isLoading.value = AuthState.UnLoading
             }
             .addOnFailureListener {
                 onResult(false,it.localizedMessage)
                 _authState.value = AuthState.UnAuthenticated
-                _isLoading.value = AuthState.notLoading
+                _isLoading.value = AuthState.UnLoading
             }
 
     }
@@ -98,15 +97,15 @@ class AuthViewModel : ViewModel() {
                 .set(user)
                 .addOnSuccessListener {
                     onResult(true, "User saved successfully")
-                    _isLoading.value= AuthState.notLoading
+                    _isLoading.value= AuthState.UnLoading
                 }
                 .addOnFailureListener {
                     onResult(false, it.localizedMessage)
-                    _isLoading.value= AuthState.notLoading
+                    _isLoading.value= AuthState.UnLoading
                 }
         } else {
             onResult(false, "User not logged in")
-            _isLoading.value= AuthState.notLoading
+            _isLoading.value= AuthState.UnLoading
         }
     }
 
@@ -129,16 +128,33 @@ class AuthViewModel : ViewModel() {
                 }
         }
     }
-    fun fetchRecentAudio(onResult: (List<Recent>)-> Unit){
+    fun fetchRecentAudio(onResult: (List<Audios>)-> Unit){
+        _isLoading.value= AuthState.Loading
         firestore.collection(USER).document("Audios").collection("recent").get()
             .addOnSuccessListener { documents->
-                val mediaList = documents.mapNotNull { it.toObject(Recent::class.java) }
+                val mediaList = documents.mapNotNull { it.toObject(Audios::class.java) }
                 onResult(mediaList)
+                _isLoading.value= AuthState.UnLoading
             }
             .addOnFailureListener {
                 onResult(emptyList())
+                _isLoading.value= AuthState.UnLoading
             }
 
+    }
+
+    fun fetchRecommendAudios(onResult:(List<Audios>)-> Unit){
+        _isLoading.value= AuthState.Loading
+        firestore.collection(USER).document("Audios").collection("Recommend").get()
+            .addOnSuccessListener { documents->
+                val mediaList = documents.mapNotNull { it.toObject(Audios::class.java) }
+                onResult(mediaList)
+                _isLoading.value= AuthState.UnLoading
+            }
+            .addOnFailureListener {
+                onResult(emptyList())
+                _isLoading.value= AuthState.UnLoading
+            }
     }
 }
 
@@ -146,5 +162,5 @@ sealed class AuthState() {
     object Authenticated : AuthState()
     object UnAuthenticated : AuthState()
     object Loading : AuthState()
-    object notLoading : AuthState()
+    object UnLoading : AuthState()
 }

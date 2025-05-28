@@ -1,6 +1,6 @@
 package com.deepakjetpackcompose.nosleep.model
 
-data class Recent(
+data class Audios(
     val id:String="",
     val title:String="",
     val subTitle:String="",
