@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,6 +57,7 @@ import com.deepakjetpackcompose.nosleep.ui.theme.text
 import com.deepakjetpackcompose.nosleep.util.ClickableTextAuth
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
@@ -64,6 +66,18 @@ fun LoginScreen(
     navController: NavHostController,
     authViewModel: AuthViewModel
 ) {
+    val systemUi= rememberSystemUiController()
+
+    SideEffect {
+        systemUi.setStatusBarColor(
+            color = Color(0xFF404756),
+            darkIcons = false
+        )
+        systemUi.setNavigationBarColor(
+            color = Color(0xFFE9EFFF),
+            darkIcons = true
+        )
+    }
 
     BoxWithConstraints(
         modifier = Modifier

@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -32,10 +33,23 @@ import com.deepakjetpackcompose.nosleep.R
 import com.deepakjetpackcompose.nosleep.navigation.NavigationHelper
 import com.deepakjetpackcompose.nosleep.ui.theme.SyneBold
 import com.deepakjetpackcompose.nosleep.ui.theme.text
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun OnBoardingScreen2(modifier: Modifier = Modifier, navController: NavHostController) {
+    val systemUi= rememberSystemUiController()
+
+    SideEffect {
+        systemUi.setStatusBarColor(
+            color = Color(0xFF404756),
+            darkIcons = false
+        )
+        systemUi.setNavigationBarColor(
+            color = Color(0xFFE9EFFF),
+            darkIcons = true
+        )
+    }
 
     BoxWithConstraints(
         modifier = Modifier

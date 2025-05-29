@@ -1,5 +1,6 @@
 package com.deepakjetpackcompose.nosleep.util
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,16 +22,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.deepakjetpackcompose.nosleep.R
 import com.deepakjetpackcompose.nosleep.model.Audios
+import com.deepakjetpackcompose.nosleep.navigation.NavigationHelper
 import com.deepakjetpackcompose.nosleep.ui.theme.NunitoFont
+import java.net.URLEncoder
 
 @Composable
-fun RecommendComp(audios: Audios, modifier: Modifier = Modifier) {
+fun RecommendComp(navController: NavController,audios: Audios, modifier: Modifier = Modifier) {
+    val encodedTitle = URLEncoder.encode(audios.title, "UTF-8")
+    val encodedAudio = URLEncoder.encode(audios.audioUrl, "UTF-8")
+    val encodedImg = URLEncoder.encode(audios.img, "UTF-8")
 
-    Column(modifier = Modifier.width(180.dp).wrapContentHeight(),
+    Column(modifier = Modifier.width(180.dp).wrapContentHeight().clickable(onClick = {navController.navigate("${NavigationHelper.PlayerScreen.route}/$encodedTitle/$encodedAudio/$encodedImg")}),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center) {
         Box(modifier = Modifier.width(180.dp).height(130.dp).clip(RoundedCornerShape(10.dp))){

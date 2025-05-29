@@ -14,6 +14,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,7 @@ import com.deepakjetpackcompose.nosleep.util.NewAudios
 import com.deepakjetpackcompose.nosleep.util.RecentList
 import com.deepakjetpackcompose.nosleep.util.RecommendList
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
@@ -42,6 +44,18 @@ fun HomeScreen(
     navController: NavHostController
 ) {
     val isSelected = remember { mutableStateOf(1) }
+    val systemUi= rememberSystemUiController()
+
+    SideEffect {
+        systemUi.setStatusBarColor(
+            color = Color(0xFF56669D),
+            darkIcons = false
+        )
+        systemUi.setNavigationBarColor(
+            color = Color(0xFF56669D),
+            darkIcons = false
+        )
+    }
 
     Scaffold(
         bottomBar = {
@@ -126,7 +140,7 @@ fun HomeScreen(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                     top.linkTo(recentText.bottom, margin = 20.dp)
-                }, authViewModel = authViewModel)
+                }, authViewModel = authViewModel, navController = navController)
 
                 Text(
                     "Recommended for you", color = Color.White,
@@ -144,7 +158,8 @@ fun HomeScreen(
                     modifier = Modifier.constrainAs(recomImg) {
                         start.linkTo(parent.start)
                         top.linkTo(recommendedText.bottom, margin = 15.dp)
-                    })
+                    },
+                    navController = navController)
 
 
             }

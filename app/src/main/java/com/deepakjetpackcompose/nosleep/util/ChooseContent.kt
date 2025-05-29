@@ -36,7 +36,7 @@ fun ChooseContent(
     bgColor: Color,
     isClicked: Boolean,
     onClick:(String)-> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
 
     ConstraintLayout(

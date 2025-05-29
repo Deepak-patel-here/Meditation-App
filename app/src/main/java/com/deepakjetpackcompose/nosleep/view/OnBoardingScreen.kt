@@ -21,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +41,7 @@ import com.deepakjetpackcompose.nosleep.ui.theme.buttonBg
 import com.deepakjetpackcompose.nosleep.util.GetStartedText
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
@@ -49,6 +51,19 @@ fun OnBoardingScreen(
     modifier: Modifier = Modifier,
     authViewModel: AuthViewModel
 ) {
+    val systemUi= rememberSystemUiController()
+
+
+    SideEffect {
+        systemUi.setStatusBarColor(
+            color = Color(0xFF56669D),
+            darkIcons = true // true if status bar icons should be dark (for light backgrounds)
+        )
+        systemUi.setNavigationBarColor(
+            color = Color(0xFF56669D),
+            darkIcons = false // false if you want light navigation bar icons
+        )
+    }
 
     BoxWithConstraints(
         modifier = modifier

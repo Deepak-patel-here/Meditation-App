@@ -30,7 +30,7 @@ import com.deepakjetpackcompose.nosleep.ui.theme.text
 fun ChooseComposable(
     modifier: Modifier = Modifier,
     selectedKeywords: List<String>,
-    onPreferenceClick: (String) -> Unit
+    onPreferenceClick: (String) -> Unit,
 ) {
     val preference = listOf<Preference>(
         Preference(

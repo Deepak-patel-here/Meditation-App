@@ -14,6 +14,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +41,7 @@ import com.deepakjetpackcompose.nosleep.util.ChooseComposable
 import com.deepakjetpackcompose.nosleep.util.ChooseText
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
@@ -54,6 +56,19 @@ fun ChooseScreen(
     val email = authViewModel.email.collectAsState()
     val loading = authViewModel.isLoading.collectAsState()
     val context = LocalContext.current
+
+    val systemUi= rememberSystemUiController()
+
+    SideEffect {
+        systemUi.setStatusBarColor(
+            color = Color(0xFFF2DCC2),
+            darkIcons = false
+        )
+        systemUi.setNavigationBarColor(
+            color = Color(0xFFF2BDBB),
+            darkIcons = true
+        )
+    }
     BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()

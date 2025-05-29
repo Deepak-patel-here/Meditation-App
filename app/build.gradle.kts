@@ -68,6 +68,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
     // In your build.gradle (app-level) under dependencies:
     implementation("io.coil-kt:coil-compose:2.4.0")
+    //statusbar
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
 
 
 }

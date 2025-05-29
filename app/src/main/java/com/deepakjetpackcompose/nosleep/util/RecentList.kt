@@ -16,12 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.deepakjetpackcompose.nosleep.model.Audios
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 
 @Composable
-fun RecentList(authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
+fun RecentList(navController: NavController,authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
 
     val audiosList = remember { mutableStateOf<List<Audios>>(emptyList()) }
     val isLoading = authViewModel.isLoading.collectAsState()
@@ -49,7 +50,7 @@ fun RecentList(authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
     }else {
         LazyRow(modifier = modifier.fillMaxWidth()) {
             items(audiosList.value) { item ->
-                NewAudios(audios = item)
+                NewAudios(audios = item, navController = navController)
                 Spacer(Modifier.width(15.dp))
             }
         }

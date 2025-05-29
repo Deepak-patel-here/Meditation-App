@@ -24,7 +24,7 @@ import com.deepakjetpackcompose.nosleep.R
 
 @Composable
 fun BottomBar(isSelected: MutableState<Int>, modifier: Modifier = Modifier) {
-    Card ( modifier = Modifier.fillMaxWidth().height(60.dp), elevation = CardDefaults.elevatedCardElevation(10.dp), shape = RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp)){
+    Card ( modifier = Modifier.fillMaxWidth().height(60.dp), elevation = CardDefaults.cardElevation(10.dp)){
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
@@ -32,33 +32,25 @@ fun BottomBar(isSelected: MutableState<Int>, modifier: Modifier = Modifier) {
         ) {
             IconButton(
                 onClick = {isSelected.value=1},
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = if (isSelected.value == 1) {
-                        Color.Yellow
-                    } else Color(0xFF56669D)
-                )
+
 
             ) {
                 Icon(
                     painter = painterResource(R.drawable.home_h),
                     contentDescription = null,
-                    tint =  if (isSelected.value == 1) Color.Black else Color.White,
+                    tint =  if (isSelected.value == 1) Color.Yellow else Color.White,
                     modifier = Modifier.size(30.dp)
                 )
             }
 
             IconButton(
                 onClick = {isSelected.value=2},
-                colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = if (isSelected.value == 2) {
-                        Color.Yellow
-                    } else Color(0xFF56669D)
-                )
+
             ) {
                 Icon(
                     painter = painterResource(R.drawable.user),
                     contentDescription = null,
-                    tint = if (isSelected.value == 2) Color.Black else Color.White,
+                    tint = if (isSelected.value == 2) Color.Yellow else Color.White,
                     modifier = Modifier.size(30.dp)
                 )
             }

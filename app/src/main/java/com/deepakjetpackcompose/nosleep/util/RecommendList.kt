@@ -17,12 +17,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.deepakjetpackcompose.nosleep.model.Audios
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 
 @Composable
-fun RecommendList(authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
+fun RecommendList(navController: NavController,authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
     val audiosList = remember { mutableStateOf<List<Audios>>(emptyList()) }
     val isLoading = authViewModel.isLoading.collectAsState()
     LaunchedEffect(Unit) {
@@ -53,7 +54,8 @@ fun RecommendList(authViewModel: AuthViewModel, modifier: Modifier = Modifier) {
     } else {
         LazyRow(modifier = modifier.fillMaxWidth()) {
             items(audiosList.value) { item ->
-                RecommendComp(item)
+                RecommendComp(audios = item,
+                    navController = navController)
                 Spacer(Modifier.width(15.dp))
             }
         }
