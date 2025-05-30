@@ -107,7 +107,7 @@ fun LoginScreen(
 
             LaunchedEffect(authState) {
                 if(authState== AuthState.Authenticated){
-                    navController.navigate(NavigationHelper.HomeScreen.route){
+                    navController.navigate(NavigationHelper.MyAppScreen.route){
                         popUpTo(NavigationHelper.LoginScreen.route){inclusive=true}
                     }
                 }

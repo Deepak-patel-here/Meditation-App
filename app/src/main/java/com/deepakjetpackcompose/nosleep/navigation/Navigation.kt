@@ -1,7 +1,6 @@
 package com.deepakjetpackcompose.nosleep.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -12,12 +11,13 @@ import androidx.navigation.navArgument
 import com.deepakjetpackcompose.nosleep.view.ChooseScreen
 import com.deepakjetpackcompose.nosleep.view.HomeScreen
 import com.deepakjetpackcompose.nosleep.view.LoginScreen
+import com.deepakjetpackcompose.nosleep.view.MyAppScreen
 import com.deepakjetpackcompose.nosleep.view.OnBoardingScreen
 import com.deepakjetpackcompose.nosleep.view.OnBoardingScreen2
 import com.deepakjetpackcompose.nosleep.view.PlayerScreen
+import com.deepakjetpackcompose.nosleep.view.ProfileScreen
 import com.deepakjetpackcompose.nosleep.view.SignUpScreen
 import com.deepakjetpackcompose.nosleep.view.SplashScreen
-import com.deepakjetpackcompose.nosleep.viewmodel.AuthState
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
@@ -99,6 +99,21 @@ fun Navigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
 
         composable(route = NavigationHelper.SplashScreen.route) {
             SplashScreen(navController=navController, authViewModel = authViewModel)
+        }
+
+        composable(route = NavigationHelper.ProfileScreen.route) {
+            ProfileScreen(
+                navController = navController,
+                authViewModel = authViewModel,
+                modifier = modifier
+            )
+        }
+        composable(route = NavigationHelper.MyAppScreen.route) {
+            MyAppScreen(
+                navController = navController,
+                authViewModel = authViewModel,
+                modifier = modifier
+            )
         }
 
 

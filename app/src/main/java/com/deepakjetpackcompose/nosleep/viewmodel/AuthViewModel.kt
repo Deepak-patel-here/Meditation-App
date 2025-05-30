@@ -25,6 +25,9 @@ class AuthViewModel : ViewModel() {
     private val _email = MutableStateFlow<String>("")
     val email: StateFlow<String> = _email.asStateFlow()
 
+    private val _profileData = MutableStateFlow<User>(User())
+    val profileData: StateFlow<User> = _profileData
+
 
     init {
         checkAuthenticated()
@@ -42,8 +45,10 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 onResult(true,"Registered successfully")
-                _name.value=name
-                _email.value=email
+                getUserData { user->
+                    _name.value=user?.name.toString()
+                    _email.value=user?.email.toString()
+                }
                 _authState.value = AuthState.Authenticated
                 _isLoading.value = AuthState.UnLoading
             }
@@ -121,6 +126,7 @@ class AuthViewModel : ViewModel() {
                         email = item.getString("email") ?: "",
                         preferences = item.get("preferences") as? List<String> ?: emptyList()
                     )
+                    _profileData.value=myUser
                     callback(myUser)
                 }
                 .addOnFailureListener {
@@ -156,6 +162,9 @@ class AuthViewModel : ViewModel() {
                 _isLoading.value= AuthState.UnLoading
             }
     }
+
+
+
 }
 
 sealed class AuthState() {

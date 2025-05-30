@@ -25,7 +25,7 @@ import kotlinx.coroutines.delay
 fun SplashScreen(authViewModel: AuthViewModel,navController: NavController,modifier: Modifier = Modifier) {
     val authState = authViewModel.authState.collectAsState()
 
-    val nav=if(authState.value== AuthState.Authenticated) NavigationHelper.HomeScreen.route else NavigationHelper.GetStarted.route
+    val nav=if(authState.value== AuthState.Authenticated) NavigationHelper.MyAppScreen.route else NavigationHelper.GetStarted.route
     LaunchedEffect(Unit) {
         delay(1500)
         navController.navigate(nav){

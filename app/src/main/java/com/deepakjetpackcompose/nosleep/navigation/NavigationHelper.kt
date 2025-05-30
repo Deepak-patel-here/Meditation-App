@@ -9,4 +9,6 @@ sealed class NavigationHelper(val route:String) {
     object HomeScreen: NavigationHelper(route = "home")
     object PlayerScreen: NavigationHelper(route = "player")
     object SplashScreen: NavigationHelper(route = "splash")
+    object ProfileScreen: NavigationHelper(route = "profile")
+    object MyAppScreen: NavigationHelper(route = "app")
 }

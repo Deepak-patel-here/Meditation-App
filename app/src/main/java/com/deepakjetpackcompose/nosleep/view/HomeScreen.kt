@@ -36,14 +36,17 @@ import com.deepakjetpackcompose.nosleep.util.RecommendList
 import com.deepakjetpackcompose.nosleep.viewmodel.AuthViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+
+
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     authViewModel: AuthViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+
 ) {
-    val isSelected = remember { mutableStateOf(1) }
+
     val systemUi= rememberSystemUiController()
 
     SideEffect {
@@ -57,14 +60,7 @@ fun HomeScreen(
         )
     }
 
-    Scaffold(
-        bottomBar = {
-        BottomBar(isSelected = isSelected)
-    },
-        modifier = Modifier
-            .statusBarsPadding()
-            .navigationBarsPadding()
-        ) { innerPadding ->
+
 
 
         BoxWithConstraints(
@@ -74,7 +70,7 @@ fun HomeScreen(
                 .padding(horizontal = 20.dp)
                 .navigationBarsPadding()
                 .statusBarsPadding()
-                .padding(innerPadding)
+
         ) {
             val screenHeight = minHeight
             val screenWidth = minWidth
@@ -164,7 +160,7 @@ fun HomeScreen(
 
             }
         }
-    }
+
 
 
 }

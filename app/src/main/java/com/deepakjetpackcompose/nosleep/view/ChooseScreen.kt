@@ -133,7 +133,7 @@ fun ChooseScreen(
 
                     authViewModel.saveUserToFireStore(user = userData) { success, msg ->
                         if (success) {
-                            navController.navigate(NavigationHelper.HomeScreen.route) {
+                            navController.navigate(NavigationHelper.MyAppScreen.route) {
                                 popUpTo(NavigationHelper.ChooseScreen.route) { inclusive = true }
                             }
                         } else Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
